@@ -2,8 +2,8 @@ name: Generate Snake
 
 on:
   schedule:
-    - cron: "0 9 * * *"  # Se ejecuta todos los días a medianoche
-  workflow_dispatch:  # Permite ejecución manual
+    - cron: "0 9 * * *"  # se ejecuta cada día a medianoche UTC
+  workflow_dispatch:  # te permite ejecutarlo manualmente desde Actions
 
 jobs:
   generate:
@@ -11,10 +11,11 @@ jobs:
     steps:
       - uses: Platane/snk@v3
         with:
-          github_user_name: https://github.com/DavidMG23
+          github_user_name: ${{ github.repository_owner }}
           outputs: |
             dist/github-snake.svg
             dist/github-snake-dark.svg?palette=github-dark
+            dist/ocean.gif?color_snake=orange&color_dots=#bfd6f6,#8dbdff,#64a1f4,#4b91f1,#3c7dd9
 
       - uses: crazy-max/ghaction-github-pages@v3
         with:
